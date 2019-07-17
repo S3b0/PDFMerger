@@ -1,27 +1,49 @@
 {
-    "name": "myokyawhtun/pdfmerger",
-    "description": "PDFMerger for PHP (PHP 5 and up to PHP 7.1 Compatible)",
-    "authors": [
-    	{
-    		"name":"Jarrod Nettles",
-    		"email": "jarrod@squarecrow.com"
-    	},
-    	{
-    		"name":"Vasiliy Zaytsev",
-    		"email":"vasiliy.zaytsev@ffwagency.com"
-    	},
-    	{
-    		"name":"Myo Kyaw Htun",
-    		"email":"myochauhtun@gmail.com"
-    	}
-    ],
-    "require":{
-    	"php": ">=5.2.0"
+  "name": "s3b0/pdfmerger",
+  "description": "PDFMerger for PHP (PHP 5 and up to PHP 7.1 Compatible)",
+  "authors": [
+    {
+      "name": "Jarrod Nettles",
+      "email": "jarrod@squarecrow.com"
     },
-    "minimum-stability":"dev",
-    "autoload":{
-    	"psr-0":{
-    		"PDFMerger": "PDFMerger.php"
-    	}
+    {
+      "name": "Vasiliy Zaytsev",
+      "email": "vasiliy.zaytsev@ffwagency.com"
+    },
+    {
+      "name": "Myo Kyaw Htun",
+      "email": "myochauhtun@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=5.2.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "classmap": [
+      "tcpdf/fonts",
+      "tcpdf/config",
+      "tcpdf/include",
+      "tcpdf/tcpdf.php",
+      "tcpdf/tcpdf_parser.php",
+      "tcpdf/tcpdf_import.php",
+      "tcpdf/tcpdf_barcodes_1d.php",
+      "tcpdf/tcpdf_barcodes_2d.php",
+      "tcpdf/include/tcpdf_colors.php",
+      "tcpdf/include/tcpdf_filters.php",
+      "tcpdf/include/tcpdf_font_data.php",
+      "tcpdf/include/tcpdf_fonts.php",
+      "tcpdf/include/tcpdf_images.php",
+      "tcpdf/include/tcpdf_static.php",
+      "tcpdf/include/barcodes/datamatrix.php",
+      "tcpdf/include/barcodes/pdf417.php",
+      "tcpdf/include/barcodes/qrcode.php",
+      "tcpdf/tcpdi.php",
+      "tcpdf/tcpdi_parser.php"
+    ],
+    "psr-0": {
+      "PDFMerger": "PDFMerger.php"
+    }
+  }
 }

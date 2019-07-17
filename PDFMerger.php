@@ -40,16 +40,6 @@ class PDFMerger
 	private $_fpdi;
 
 	/**
-	 * Merge PDFs.
-	 * @return void
-	 */
-	public function __construct()
-	{
-		require_once('tcpdf/tcpdf.php');
-		require_once('tcpdf/tcpdi.php');
-	}
-
-	/**
 	 * Add a PDF for inclusion in the merge with a valid file path. Pages should be formatted: 1,3,6, 12-16.
 	 * @param $filepath
 	 * @param $pages
@@ -68,7 +58,7 @@ class PDFMerger
 		}
 		else
 		{
-			throw new exception("Could not locate PDF on '$filepath'");
+			throw new \RuntimeException("Could not locate PDF on '$filepath'");
 		}
 
 		return $this;
@@ -82,9 +72,9 @@ class PDFMerger
 	 */
 	public function merge($outputmode = 'browser', $outputpath = 'newfile.pdf')
 	{
-		if(!isset($this->_files) || !is_array($this->_files)): throw new exception("No PDFs to merge."); endif;
+		if(!isset($this->_files) || !is_array($this->_files)): throw new \RuntimeException("No PDFs to merge."); endif;
 
-    $fpdi = new TCPDI;
+    $fpdi = new \TCPDI;
     $fpdi->SetPrintHeader(false);
     $fpdi->SetPrintFooter(false);
 
@@ -113,7 +103,7 @@ class PDFMerger
 			{
 				foreach($filepages as $page)
 				{
-					if(!$template = $fpdi->importPage($page)): throw new exception("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
+					if(!$template = $fpdi->importPage($page)): throw new \RuntimeException("Could not load page '$page' in PDF '$filename'. Check that the page exists."); endif;
 					$size = $fpdi->getTemplateSize($template);
 					$orientation = ($size['h'] > $size['w']) ? 'P' : 'L';
 
@@ -143,7 +133,7 @@ class PDFMerger
 			}
 			else
 			{
-				throw new exception("Error outputting PDF to '$outputmode'.");
+				throw new \RuntimeException("Error outputting PDF to '$outputmode'.");
 				return false;
 			}
 		}
@@ -154,27 +144,22 @@ class PDFMerger
 	/**
 	 * FPDI uses single characters for specifying the output location. Change our more descriptive string into proper format.
 	 * @param $mode
-	 * @return Character
+	 * @return string
 	 */
-	private function _switchmode($mode)
-	{
+	private function _switchmode($mode): ?string
+    {
 		switch(strtolower($mode))
 		{
 			case 'download':
 				return 'D';
-				break;
 			case 'browser':
 				return 'I';
-				break;
 			case 'file':
 				return 'F';
-				break;
 			case 'string':
 				return 'S';
-				break;
 			default:
 				return 'I';
-				break;
 		}
 	}
 
@@ -198,7 +183,7 @@ class PDFMerger
 				$x = $ind[0]; //start page
 				$y = $ind[1]; //end page
 
-				if($x > $y): throw new exception("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
+				if($x > $y): throw new \RuntimeException("Starting page, '$x' is greater than ending page '$y'."); return false; endif;
 
 				//add middle pages
 				while($x <= $y): $newpages[] = (int) $x; $x++; endwhile;
